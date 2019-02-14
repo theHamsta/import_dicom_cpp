@@ -7,15 +7,14 @@
 
 #include "ImageToNumpy.hpp"
 
-#include "pybind11/embed.h"
 #include "pybind11/eval.h"
 
 namespace py = pybind11;
 using namespace pybind11::literals;
 
+
 pybind11::array_t< float > openImage(std::string filename)
 {
-    auto interpreter = std::make_unique< py::scoped_interpreter >();
     auto locals      = py::dict("filename"_a = filename);
 
     py::exec(R"(
