@@ -20,14 +20,13 @@ set(CXX_STANDARD 17)
 
 aux_source_directory(source SOURCES)
 
-add_executable(import_dicom
-    main.cpp
+add_library(import_dicom
     ${SOURCES}
     )
 
 target_include_directories(
     import_dicom
-PRIVATE
+PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include/
 	)
 
@@ -38,3 +37,12 @@ target_link_libraries(
 )
 
 
+add_executable(test_import_dicom
+    main.cpp
+    )
+
+target_link_libraries(
+    test_import_dicom
+    PRIVATE
+        import_dicom
+    )
