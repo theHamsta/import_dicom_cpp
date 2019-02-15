@@ -7,5 +7,5 @@ add_executable(test_import_dicom
 target_link_libraries(
     test_import_dicom
     PRIVATE
-    import_dicom
+    import_dicom_cpp
     )

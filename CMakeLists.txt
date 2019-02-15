@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(import_dicom)
+project(import_dicom_cpp)
 
 add_subdirectory(pybind11)
 
@@ -28,15 +28,15 @@ set(OPENVDB_LIBRARIES
 
 aux_source_directory(source SOURCES)
 
-add_library(import_dicom INTERFACE)
+add_library(import_dicom_cpp INTERFACE)
 
-target_include_directories(import_dicom
+target_include_directories(import_dicom_cpp
     INTERFACE
     ${CMAKE_CURRENT_SOURCE_DIR}/include/
     )
 
 target_link_libraries(
-    import_dicom
+    import_dicom_cpp
     INTERFACE
     pybind11::embed
     ${OPENVDB_LIBRARIES}
