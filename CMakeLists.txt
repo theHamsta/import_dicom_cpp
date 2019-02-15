@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.5)
+cmake_minimum_required(VERSION 3.5)
 
 project(import_dicom)
 
@@ -17,14 +17,15 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 set(CXX_STANDARD 17)
-set( OPENVDB_LIBRARIES
-                            tbb
-                            openvdb
-                            Half                                                                      
-                            IexMath                                                                  
-                            Iex                                                                             
-                            IlmThread                                                               
-                            Imath)
+set(OPENVDB_LIBRARIES
+    tbb
+
+    openvdb
+    Half
+    IexMath
+    Iex
+    IlmThread
+    Imath)
 
 aux_source_directory(source SOURCES)
 
@@ -36,12 +37,12 @@ target_include_directories(
     import_dicom
 PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include/
-	)
+)
 
 target_link_libraries(
     import_dicom
     PUBLIC
-        pybind11::embed    
+        pybind11::embed
         ${OPENVDB_LIBRARIES}
 )
 
