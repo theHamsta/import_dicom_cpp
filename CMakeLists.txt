@@ -17,10 +17,18 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 endif()
 
 set(CXX_STANDARD 17)
+set( OPENVDB_LIBRARIES
+                            tbb
+                            openvdb
+                            Half                                                                      
+                            IexMath                                                                  
+                            Iex                                                                             
+                            IlmThread                                                               
+                            Imath)
 
 aux_source_directory(source SOURCES)
 
-add_library(import_dicom
+add_library(import_dicom STATIC
     ${SOURCES}
     )
 
@@ -34,6 +42,7 @@ target_link_libraries(
     import_dicom
     PUBLIC
         pybind11::embed    
+        ${OPENVDB_LIBRARIES}
 )
 
 

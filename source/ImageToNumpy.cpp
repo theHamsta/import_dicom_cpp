@@ -13,7 +13,7 @@ namespace py = pybind11;
 using namespace pybind11::literals;
 
 
-pybind11::array_t< float > openImage(std::string filename)
+pybind11::array_t< float > openImage(const std::string& filename)
 {
     auto locals      = py::dict("filename"_a = filename);
 
