@@ -1,3 +1,4 @@
+#pragma once
 #ifndef Q_MOC_RUN
 #    undef Q_FOREACH
 #    undef foreach
@@ -16,7 +17,7 @@ template< class T >
 using GridPtr_T = typename Grid_T< T >::Ptr;
 
 template< class T >
-GridPtr_T< T > numpyToOpenVdb(pybind11::array_t< T > array, float clippingTolerance = 0.f)
+GridPtr_T< T > numpyToOpenVdb(pybind11::array_t< T > array, T absoluteTolerance = static_cast<T>(0), float pruningTolerance = 0.f)
 {
     GridPtr_T< T > grid = Grid_T< T >::create();
     auto accessor       = grid->getAccessor();
@@ -31,13 +32,22 @@ GridPtr_T< T > numpyToOpenVdb(pybind11::array_t< T > array, float clippingTolera
         for (k = 0; k < r.shape(0); k++)
             for (j = 0; j < r.shape(1); j++)
                 for (i = 0; i < r.shape(2); i++)
-                    if (r(k, j, i) != 0.f) { accessor.setValue(ijk, r(k, j, i)); }
+                    //if (r(k, j, i) != 0.f) { accessor.setValue(ijk, r(k, j, i)); }
+                    if (std::abs(r(k, j, i)) > absoluteTolerance) { accessor.setValue(ijk, r(k, j, i)); }
     }
     else
     {
         throw std::runtime_error("Array is not a volume!");
     }
 
-    grid->pruneGrid(clippingTolerance);
+    grid->pruneGrid(pruningTolerance);
+    return grid;
+}
+
+template< class T >
+GridPtr_T< T > imageToOpenVdb(const std::string& filename, T absoluteTolerance = 0., float pruningTolerance = 0.f)
+{
+    auto array = imageToNumpy<T>(filename);
+    auto grid = numpyToOpenVdb<T>(array);
     return grid;
 }
