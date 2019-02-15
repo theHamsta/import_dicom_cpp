@@ -1,9 +1,20 @@
 #pragma once
 #include <string>
 
-#include "pybind11/embed.h"
-#include "pybind11/eval.h"
-#include "pybind11/numpy.h"
+#ifndef Q_MOC_RUN
+#    pragma push_macro("Q_FOREACH")
+#    pragma push_macro("foreach")
+#    pragma push_macro("slots")
+#    undef Q_FOREACH
+#    undef foreach
+#    undef slots
+#    include "pybind11/embed.h"
+#    include "pybind11/eval.h"
+#    include "pybind11/numpy.h"
+#    pragma pop_macro("Q_FOREACH")
+#    pragma pop_macro("foreach")
+#    pragma pop_macro("slots")
+#endif
 
 template< typename T >
 inline pybind11::array_t< T > imageToNumpy(const std::string& filename)
