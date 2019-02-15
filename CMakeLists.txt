@@ -44,7 +44,7 @@ target_link_libraries(
 
 
 add_executable(test_import_dicom
-    main.cpp
+    test_import_dicom.cpp
     )
 
 target_link_libraries(

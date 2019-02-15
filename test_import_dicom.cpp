@@ -13,8 +13,8 @@ int main()
     auto volume3 = imageToNumpy<int>(filename);
     std::cout << volume.at(3, 4, 20) << std::endl;
 
-    auto grid = numpyToOpenVdb(volume);
+    auto grid = numpyToOpenVdb(volume3);
     std::cout << "Grid has " << grid->activeVoxelCount() << " voxels." << std::endl;
-    grid = imageToOpenVdb<float>(filename, 100);
-    std::cout << "Grid has " << grid->activeVoxelCount() << " voxels." << std::endl;
+    auto foo  = imageToOpenVdb<int>(filename, 400);
+    std::cout << "Grid has " << foo->activeVoxelCount() << " voxels." << std::endl;
 }
