@@ -1,13 +1,14 @@
 #pragma once
 #ifndef Q_MOC_RUN
+#    pragma push_macro("Q_FOREACH")
+#    pragma push_macro("foreach")
 #    undef Q_FOREACH
 #    undef foreach
 #    include <openvdb/openvdb.h>
+#    include <openvdb/tools/Dense.h>
 #    pragma pop_macro("Q_FOREACH")
 #    pragma pop_macro("foreach")
 #endif
-
-#include <openvdb/tools/Dense.h>
 
 #include "ImageToNumpy.hpp"
 
@@ -17,7 +18,8 @@ template< class T >
 using GridPtr_T = typename Grid_T< T >::Ptr;
 
 template< class T >
-GridPtr_T< T > numpyToOpenVdb(const pybind11::array_t< T >& array, T absoluteTolerance = static_cast<T>(0), float pruningTolerance = 0.f)
+GridPtr_T< T > numpyToOpenVdb(const pybind11::array_t< T >& array, T absoluteTolerance = static_cast< T >(0),
+                              float pruningTolerance = 0.f)
 {
     GridPtr_T< T > grid = Grid_T< T >::create();
     auto accessor       = grid->getAccessor();
@@ -44,9 +46,10 @@ GridPtr_T< T > numpyToOpenVdb(const pybind11::array_t< T >& array, T absoluteTol
 }
 
 template< class T >
-GridPtr_T< T > imageToOpenVdb(const std::string& filename, T absoluteTolerance = static_cast<T>(0), float pruningTolerance = 0.f)
+GridPtr_T< T > imageToOpenVdb(const std::string& filename, T absoluteTolerance = static_cast< T >(0),
+                              float pruningTolerance = 0.f)
 {
-    auto array = imageToNumpy<T>(filename);
-    auto grid = numpyToOpenVdb<T>(array, absoluteTolerance, pruningTolerance);
+    auto array = imageToNumpy< T >(filename);
+    auto grid  = numpyToOpenVdb< T >(array, absoluteTolerance, pruningTolerance);
     return grid;
 }
