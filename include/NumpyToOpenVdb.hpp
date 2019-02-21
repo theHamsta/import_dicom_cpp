@@ -21,6 +21,7 @@ template< class T >
 GridPtr_T< T > numpyToOpenVdb(const pybind11::array_t< T >& array, T absoluteTolerance = static_cast< T >(0),
                               float pruningTolerance = 0.f)
 {
+	openvdb::initialize();
     GridPtr_T< T > grid = Grid_T< T >::create();
     auto accessor       = grid->getAccessor();
     openvdb::Coord ijk;
