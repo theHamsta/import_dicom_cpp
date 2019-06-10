@@ -8,5 +8,5 @@ It needs to be built with a Python interpreter with pydicom installed.
 
 This is a header-only library.
 See (test)[test] for a usage example.
-If you only use (`ImageToNumpy.hpp`)[include/ImageToNumpy.hpp] no external dependencies apart from a Python interpreter are needed.
-(`NumpyToOpenVdb.hpp`)[include/NumpyToOpenVdb.hpp] requires (OpenVDB)[https://github.com/AcademySoftwareFoundation/openvdb] (`libopenvdb-dev` on Ubuntu).
+If you only use [`ImageToNumpy.hpp`](include/ImageToNumpy.hpp) no external dependencies apart from a Python interpreter are needed.
+[`NumpyToOpenVdb.hpp`](include/NumpyToOpenVdb.hpp) requires [OpenVDB](https://github.com/AcademySoftwareFoundation/openvdb) (`libopenvdb-dev` on Ubuntu).
